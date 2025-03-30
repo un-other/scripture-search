@@ -30,7 +30,7 @@ class SuttaText:
 
     collection: str
     title: str
-    paragraphs: list[str]
+    text: str
     url_source: str
 
 
@@ -89,8 +89,8 @@ class DhammaTalksCollector(DataCollector):
             self.logger.warning("No sutta body found at %s", url)
             return None
         sutta_title = sutta_body.find("h1").text.split("\n")[0].strip()
-        sutta_paragraphs = [p.text.strip() for p in sutta_body.find_all("p")]
-        return SuttaText(collection, sutta_title, sutta_paragraphs, url)
+        sutta_text = "\n".join([p.text.strip() for p in sutta_body.find_all("p")])
+        return SuttaText(collection, sutta_title, sutta_text, url)
 
     def _get_index_page_to_sutta_page_links(self) -> dict[str, list[str]]:
         """Get a mapping of index pages to their sutta page links."""
