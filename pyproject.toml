@@ -4,4 +4,22 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = []
+dependencies = [
+]
+
+[project.optional-dependencies]
+dev = [
+    "beautifulsoup4>=4.13.3",
+    "black[jupyter]>=25.1.0",
+    "coverage>=7.7.1",
+    "ipykernel>=6.29.5",
+    "isort>=6.0.1",
+    "notebook>=7.3.3",
+    "pandas>=2.2.3",
+    "pylint>=3.3.6",
+    "pytest>=8.3.5",
+    "tqdm>=4.67.1",
+]
+
+[tool.coverage.report]
+omit = ["tests/*"]
