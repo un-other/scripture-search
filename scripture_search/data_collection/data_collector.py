@@ -15,6 +15,7 @@ class DataCollector(ABC):
 
     def __init__(self, save_location: Path):
         self.save_location = save_location
+        self._ensure_dir_containing_save_location_exists()
         self.logger = get_logger(__name__)
 
     def get_data(self, force_refresh: bool = False) -> pd.DataFrame:
@@ -40,3 +41,9 @@ class DataCollector(ABC):
     def _collect_data(self) -> pd.DataFrame:
         """Collect data from the website."""
         raise NotImplementedError("Subclasses must implement this method.")
+
+    def _ensure_dir_containing_save_location_exists(self) -> None:
+        """Ensure the directory containing the save location exists."""
+        save_location_parent = self.save_location.parent
+        if not save_location_parent.exists():
+            save_location_parent.mkdir(parents=True)
