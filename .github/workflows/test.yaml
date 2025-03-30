@@ -1,0 +1,30 @@
+name: Check code
+
+on: [ push, pull_request ]
+
+jobs:
+  code-check:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.9", "3.10", "3.11", "3.12" ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install uv and Python dependencies
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          uv sync
+      - name: Run Pylint
+        run: |
+          uv run pylint --fail-under=8 scripture_search/
+      - uses: psf/black@stable
+      - name: Test with pytest
+        run: |
+          uv run coverage run -m pytest tests
+          uv run coverage report -m
