@@ -19,7 +19,7 @@ jobs:
       - name: Install uv and Python dependencies
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
-          uv sync
+          uv sync --all-extras
       - name: Run Pylint
         run: |
           uv run pylint --fail-under=8 scripture_search/
