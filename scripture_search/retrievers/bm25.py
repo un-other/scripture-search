@@ -22,9 +22,9 @@ class ScriptureSearchTool(Tool):
             "description": "A user query. Find the most relevant scriptures for this query.",
         },
         "k": {
-            "type": "Optional[int]",
+            "type": "integer",
             "description": "The number of results to retrieve. Defaults to 10.",
-            "optional": True,
+            "nullable": True,
         },
     }
     output_type = "string"
@@ -54,7 +54,8 @@ class ScriptureSearchTool(Tool):
         output = "\n The following scriptures may be helpful:\n"
         for doc in docs:
             output += (
-                f"\n\n===== {self._get_metadata_str(doc)} =====\n" + doc.page_content
+                f"\n\n===== {self._get_metadata_str(doc)} =====\n"
+                + doc.metadata["full_text"]
             )
         return output
 
@@ -83,5 +84,6 @@ class ScriptureSearchTool(Tool):
         Get a string representation of the metadata for a given document.
         """
         return (
-            f"Scripture: {doc.metadata['title']} | source: {doc.metadata['url_source']}"
+            f"ID: {doc.metadata['id']} | Scripture: {doc.metadata['title']} "
+            f"| source: {doc.metadata['url_source']}"
         )
