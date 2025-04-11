@@ -10,6 +10,7 @@ dependencies = [
     "rank-bm25>=0.2.2",
     "smolagents[transformers]>=1.12.0",
     "transformers>=4.50.3",
+    "openai>=1.0.0",
 ]
 
 [project.optional-dependencies]
