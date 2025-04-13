@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.3] 2025-04-13 - Implement search
+
+### Added
+
+1. `.env-template` to keep track of needed env vars
+2. `bm25.py` retrieval method + document processing
+3. `simple_search.py`, a module for searching using BM25
+4. Simmple search notebook to play around with method
+
+### Changed
+
+1. Moved `SuttaText` to new Python file `scripture_types.py` + added functionality on handling encodings / cleaning
+2. Updated `main.py` to implement simple search over suttas
+
 ## 2025-03-30 - Move repo to "un-other" organization
 
 We've moved the repository to the "un-other" organization, as this work falls in line with what we're building to help fight the problem of loneliness.
