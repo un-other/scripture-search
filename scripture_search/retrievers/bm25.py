@@ -1,5 +1,5 @@
 """
-This module contains the ScriptureSearchTool class, which is a tool that uses
+This module contains the BM25RetrieverTool class, which is a tool that uses
 semantic search to retrieve relevant scriptures for a given query.
 """
 
@@ -11,8 +11,9 @@ from smolagents import Tool
 
 DEFAULT_K = 10
 
-class ScriptureSearchTool(Tool):
-    name = "scripture_search_tool"
+
+class BM25RetrieverTool(Tool):
+    name = "bm25_retriever_tool"
     description = (
         "Uses semantic search to retrieve relevant scriptures for a given query."
     )
@@ -31,7 +32,7 @@ class ScriptureSearchTool(Tool):
 
     def __init__(self, docs: list[Document], default_k: int = DEFAULT_K, **kwargs):
         """
-        Initialize the ScriptureSearchTool.
+        Initialize the BM25RetrieverTool.
 
         Args:
             docs (list[Document]): The list of documents to search from.
