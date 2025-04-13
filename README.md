@@ -19,16 +19,20 @@ A tool for searching scripture.
 1. Create a virtual env with uv using `uv venv`.
     - Make sure the environment is activated in your Cursor/VS Code terminal, for Mac, use `source .venv/bin/activate`
     - Also ensure the environment is being used as the default interpretter for Cursor. Click `Cmd+Shift+P` and type `Python: Select Interpreter` and ensure it's pointing to the local venv at `./.venv/`
-2. Install the dependencies using the command `uv pip install -e ".[dev]"`. This installs all normal dependencies (i.e. `uv pip install`) with extra "dev" dependencies (the `-e ".[dev]"` part). All dependencies are defined in the `pyproject.toml` file.
+2. Install the dependencies using the command `uv sync --extra dev`. This installs all normal dependencies (i.e. `uv sync`) with extra "dev" dependencies (the `--extra dev` part). All dependencies are defined in the `pyproject.toml` file.
 
 ### Project structure
 
 The project is organized into several key directories and files:
 
 - `scripture_search/`: The main Python package directory
-  - `data_collection/`: Contains modules for collecting data from various sources
+  - `data_collection/`: Modules for collecting data from various sources
+  - `retrievers/`: Modules for retrieving relevant documents (e.g. BM25)
+  - `search/`: Modules implementing search methods for taking queries and returning relevant scripture.
   - `config.py`: Configuration settings and constants
   - `logger.py`: Shared logging functionality
+  - `main.py`: Run Scripture Search
+  - `scripture_types.py`: Pydantic classes for representing scripture
 
 - `notebooks/`: Jupyter notebooks for data analysis and exploration
   - Contains notebooks for data collection, analysis, and visualization
