@@ -1,3 +1,5 @@
+"""Class to hold relevant data for a sutta."""
+
 import re
 from typing import Optional
 

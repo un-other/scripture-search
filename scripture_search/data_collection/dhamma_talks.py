@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 from scripture_search.config import Config
 from scripture_search.data_collection.data_collector import DataCollector
-from scripture_search.scripture_types import SuttaText
+from scripture_search.scripture_types.sutta_text import SuttaText
 
 BASE_URL = "https://www.dhammatalks.org"
 DHAMMA_TALKS_DN_URL = BASE_URL + "/suttas/DN"
@@ -51,7 +51,7 @@ class DhammaTalksCollector(DataCollector):
                     sutta_text = self._get_sutta_text(sutta_page_link, sutta_collection)
                     data.append(sutta_text.__dict__)
                     sleep(0.25)
-                except Exception as e:
+                except Exception as e:  # pylint: disable=broad-exception-caught
                     self.logger.error(
                         "Error processing %s: %s", sutta_page_link, str(e)
                     )
