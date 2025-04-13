@@ -26,9 +26,13 @@ A tool for searching scripture.
 The project is organized into several key directories and files:
 
 - `scripture_search/`: The main Python package directory
-  - `data_collection/`: Contains modules for collecting data from various sources
+  - `data_collection/`: Modules for collecting data from various sources
+  - `retrievers/`: Modules for retrieving relevant documents (e.g. BM25)
+  - `search/`: Modules implementing search methods for taking queries and returning relevant scripture.
   - `config.py`: Configuration settings and constants
   - `logger.py`: Shared logging functionality
+  - `main.py`: Run Scripture Search
+  - `scripture_types.py`: Pydantic classes for representing scripture
 
 - `notebooks/`: Jupyter notebooks for data analysis and exploration
   - Contains notebooks for data collection, analysis, and visualization
