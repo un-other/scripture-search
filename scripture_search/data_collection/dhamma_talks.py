@@ -1,6 +1,5 @@
 """Class to scrape the Dhamma talks website using beautifulsoup4."""
 
-from dataclasses import dataclass
 from time import sleep
 from typing import Optional
 
@@ -11,6 +10,7 @@ from tqdm import tqdm
 
 from scripture_search.config import Config
 from scripture_search.data_collection.data_collector import DataCollector
+from scripture_search.scripture_types import SuttaText
 
 BASE_URL = "https://www.dhammatalks.org"
 DHAMMA_TALKS_DN_URL = BASE_URL + "/suttas/DN"
@@ -22,16 +22,6 @@ INDEX_PAGE_EXTENSIONS = [
     "/suttas/SN/",
 ]
 INDEX_PAGE_URLS = [BASE_URL + ext for ext in INDEX_PAGE_EXTENSIONS]
-
-
-@dataclass
-class SuttaText:
-    """Class to hold relevant data for a sutta."""
-
-    collection: str
-    title: str
-    text: str
-    url_source: str
 
 
 class DhammaTalksCollector(DataCollector):
@@ -59,7 +49,7 @@ class DhammaTalksCollector(DataCollector):
             for sutta_page_link in sutta_page_links:
                 try:
                     sutta_text = self._get_sutta_text(sutta_page_link, sutta_collection)
-                    data.append(sutta_text)
+                    data.append(sutta_text.__dict__)
                     sleep(0.25)
                 except Exception as e:
                     self.logger.error(
@@ -90,7 +80,12 @@ class DhammaTalksCollector(DataCollector):
             return None
         sutta_title = sutta_body.find("h1").text.split("\n")[0].strip()
         sutta_text = "\n".join([p.text.strip() for p in sutta_body.find_all("p")])
-        return SuttaText(collection, sutta_title, sutta_text, url)
+        return SuttaText(
+            collection=collection,
+            title=sutta_title,
+            original_text=sutta_text,
+            url_source=url,
+        )
 
     def _get_index_page_to_sutta_page_links(self) -> dict[str, list[str]]:
         """Get a mapping of index pages to their sutta page links."""
