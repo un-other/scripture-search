@@ -19,14 +19,13 @@ class SimpleSearch:
     """Simple Search."""
 
     def __init__(self):
-        self.dhamma_talks_suttas = self.load_data()
-        self.dhamma_talks_suttas = self.preprocess(self.dhamma_talks_suttas)
+        self.dhamma_talks_suttas = self._load_data()
+        self.dhamma_talks_suttas = self._preprocess(self.dhamma_talks_suttas)
         self.documents = self.dhamma_talks_suttas.apply(
-            self.row_to_doc, axis=1
+            self._row_to_doc, axis=1
         ).tolist()
-        self.docs_processed = self.split_docs(self.documents)
+        self.docs_processed = self._split_docs(self.documents)
 
-        # Create the retriever tool
         self.bm25_retriever_tool = BM25RetrieverTool(self.docs_processed)
 
     def run(self, query: str) -> list[Document]:
@@ -34,7 +33,7 @@ class SimpleSearch:
         return self.bm25_retriever_tool.search(query, k=K_SEARCH_RESULTS)
 
     @staticmethod
-    def load_data() -> pd.DataFrame:
+    def _load_data() -> pd.DataFrame:
         """Load the data."""
         LOGGER.debug("Loading data...")
         dhamma_talks_suttas = pd.read_csv("data/dhamma_talks_suttas.csv", index_col=0)
@@ -44,7 +43,7 @@ class SimpleSearch:
         return dhamma_talks_suttas
 
     @staticmethod
-    def preprocess(df: pd.DataFrame) -> pd.DataFrame:
+    def _preprocess(df: pd.DataFrame) -> pd.DataFrame:
         """Preprocess the data."""
         LOGGER.debug("Preprocessing data...")
 
@@ -57,7 +56,7 @@ class SimpleSearch:
         return df
 
     @staticmethod
-    def row_to_doc(row: pd.Series) -> Document:
+    def _row_to_doc(row: pd.Series) -> Document:
         """Convert a row to a document."""
         return Document(
             page_content=row["clean_text"],
@@ -65,7 +64,7 @@ class SimpleSearch:
         )
 
     @staticmethod
-    def split_docs(documents: list[Document]) -> list[Document]:
+    def _split_docs(documents: list[Document]) -> list[Document]:
         """Split the documents into smaller chunks for more efficient search."""
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=500,

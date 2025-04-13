@@ -23,7 +23,7 @@ class SuttaText(BaseModel):
     @staticmethod
     def _decode_text(text: str) -> str:
         """
-        Attempts to fix common text encoding issues in Buddhist scriptures.
+        Attempts to fix common text encoding issues in Sutta texts.
 
         This function handles cases where text might have been incorrectly encoded,
         particularly with special characters and diacritics common in Pali and Sanskrit
@@ -54,13 +54,7 @@ class SuttaText(BaseModel):
 
     @staticmethod
     def _clean_text(text: str) -> str:
-        """
-        Computed field that returns the cleaned version of the text.
-        The cleaning process:
-        1. Removes diacritics using unidecode
-        2. Normalizes whitespace
-        3. Strips leading/trailing whitespace
-        """
+        """Clean the text for easier search."""
         text = unidecode(text)  # Remove diacritics
         text = re.sub(r"\s+", " ", text)  # Normalize whitespace
         text = text.strip()  # Remove leading and trailing whitespace
