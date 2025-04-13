@@ -12,8 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 1. `.env-template` to keep track of needed env vars
 2. `bm25.py` retrieval method + document processing
 3. `simple_search.py`, a module for searching using BM25
-4. Simmple search notebook to play around with method
-
+4. Simple search notebook to play around with method
 ### Changed
 
 1. Moved `SuttaText` to new Python file `scripture_types.py` + added functionality on handling encodings / cleaning
